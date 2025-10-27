@@ -1,3 +1,3 @@
-module github.com/PabstBlue1386/rpg-hero.git
+module rpg-hero
 
 go 1.24
