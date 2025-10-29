@@ -1,12 +1,16 @@
 package hero
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
 
 type Hero struct {
-	Name      string
-	Level     int
-	Gold      int
-	Inventory map[string]int
+	Name      string         `json:"name"`
+	Level     int            `json:"level"`
+	Gold      int            `json:"gold"`
+	Inventory map[string]int `json:"inventory"`
 }
 
 func CreateHero(name string, level, gold int) *Hero {
@@ -32,4 +36,16 @@ func (h *Hero) AddGold(amount int) {
 
 	h.Gold += amount
 	fmt.Println("That's better!")
+}
+
+func (h *Hero) Save(path string) error {
+	data, err := json.MarshalIndent(h, "", " ")
+	if err != nil {
+		return err
+	}
+	err = os.WriteFile(path, data, 0644)
+	if err != nil {
+		return err
+	}
+	return err
 }

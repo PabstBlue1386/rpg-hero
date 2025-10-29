@@ -11,4 +11,6 @@ func main() {
 	arantir.LevelUp()
 	arantir.AddGold(500)
 	fmt.Printf("Hero created: %s level %v gold %v\n", arantir.Name, arantir.Level, arantir.Gold)
+
+	arantir.Save("hero.json")
 }
