@@ -39,6 +39,11 @@ func (h *Hero) AddGold(amount int) {
 }
 
 func (h *Hero) Save(path string) error {
+
+	if h.Inventory == nil {
+		h.Inventory = make(map[string]int)
+	}
+
 	data, err := json.MarshalIndent(h, "", " ")
 	if err != nil {
 		return err
@@ -48,4 +53,18 @@ func (h *Hero) Save(path string) error {
 		return err
 	}
 	return err
+}
+
+func (h *Hero) Load(path string) (*Hero, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, &h)
+	if h.Inventory == nil {
+		h.Inventory = make(map[string]int)
+	}
+
+	return h, err
 }
