@@ -17,4 +17,11 @@ func main() {
 		return
 	}
 
+	var arantir2 hero.Hero
+
+	if err := arantir2.Load("hero.json"); err != nil {
+		fmt.Println("Error read file:", err)
+	}
+	fmt.Printf("Hero loaded: %s level %v gold %v\n", arantir2.Name, arantir2.Level, arantir2.Gold)
+
 }

@@ -52,19 +52,23 @@ func (h *Hero) Save(path string) error {
 	if err != nil {
 		return err
 	}
-	return err
+	return nil
 }
 
-func (h *Hero) Load(path string) (*Hero, error) {
+func (h *Hero) Load(path string) error {
 	data, err := os.ReadFile(path)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	err = json.Unmarshal(data, &h)
+	err = json.Unmarshal(data, h)
+	if err != nil {
+		return err
+	}
+
 	if h.Inventory == nil {
 		h.Inventory = make(map[string]int)
 	}
 
-	return h, err
+	return err
 }
